@@ -4,6 +4,19 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 
 enum Ratio { ratio_4_3, ratio_16_9 }
 
+class LastScan{
+  String? barcode;
+
+  lastScan(String barcode){
+    this.barcode = barcode;
+  }
+
+  getLast(){
+    return this.barcode;
+  }
+}
+
+
 /// A widget showing a live camera preview.
 class MobileScanner extends StatefulWidget {
   /// The controller of the camera.
@@ -66,7 +79,7 @@ class _MobileScannerState extends State<MobileScanner>
   }
 
   String? lastScanned;
-  int scanAgain = 0;
+  var scanned = LastScan();
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +94,8 @@ class _MobileScannerState extends State<MobileScanner>
             } else {
               controller.barcodes.listen((barcode) {
                 if (!widget.allowDuplicates) {
-                  if (lastScanned != barcode.rawValue) {
-                    lastScanned = barcode.rawValue;
+                  if (scanned.getLast() != barcode.rawValue) {
+                    scanned.lastScan(barcode.rawValue!);
                     widget.onDetect(barcode, value! as MobileScannerArguments);
                   }
                 } else {
