@@ -80,6 +80,7 @@ class _MobileScannerState extends State<MobileScanner>
             } else {
               controller.barcodes.listen((barcode) {
                 if (!widget.allowDuplicates) {
+                  print('TEST');
                   if (lastScanned != barcode.rawValue) {
                     lastScanned = barcode.rawValue;
                     widget.onDetect(barcode, value! as MobileScannerArguments);
