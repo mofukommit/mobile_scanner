@@ -84,14 +84,6 @@ class _MobileScannerState extends State<MobileScanner>
                   if (lastScanned != barcode.rawValue) {
                     lastScanned = barcode.rawValue;
                     widget.onDetect(barcode, value! as MobileScannerArguments);
-                  }else{
-                    if (scanAgain == 0){
-                      lastScanned = barcode.rawValue;
-                      scanAgain = 1;
-                      widget.onDetect(barcode, value! as MobileScannerArguments);
-                    }else if(scanAgain == 1){
-                      scanAgain = 0;
-                    }
                   }
                 } else {
                   widget.onDetect(barcode, value! as MobileScannerArguments);

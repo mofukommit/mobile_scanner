@@ -12,11 +12,14 @@ class MobileScannerArguments {
 
   final String? webId;
 
+  final int? scanAgain;
+
   /// Create a [MobileScannerArguments].
   MobileScannerArguments({
     this.textureId,
     required this.size,
     required this.hasTorch,
     this.webId,
+    this.scanAgain,
   });
 }
