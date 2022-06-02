@@ -66,6 +66,7 @@ class _MobileScannerState extends State<MobileScanner>
   }
 
   String? lastScanned;
+  int scanAgain = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +81,17 @@ class _MobileScannerState extends State<MobileScanner>
             } else {
               controller.barcodes.listen((barcode) {
                 if (!widget.allowDuplicates) {
-                  print('TEST');
                   if (lastScanned != barcode.rawValue) {
                     lastScanned = barcode.rawValue;
                     widget.onDetect(barcode, value! as MobileScannerArguments);
+                  }else{
+                    if (scanAgain == 0){
+                      lastScanned = barcode.rawValue;
+                      scanAgain = 1;
+                      widget.onDetect(barcode, value! as MobileScannerArguments);
+                    }else if(scanAgain == 1){
+                      scanAgain = 0;
+                    }
                   }
                 } else {
                   widget.onDetect(barcode, value! as MobileScannerArguments);
